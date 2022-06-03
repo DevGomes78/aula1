@@ -1,4 +1,5 @@
 import 'package:aula1/components/text_form_widget.dart';
+import 'package:aula1/components/top_bar.dart';
 import 'package:aula1/constants/service_constants.dart';
 import 'package:aula1/controller/user_api_controller.dart';
 import 'package:flutter/material.dart';
@@ -20,68 +21,46 @@ class LoginPage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Container(
-            height: 50,
-            alignment: Alignment.bottomCenter,
-            width: MediaQuery.of(context).size.width,
-            color: Colors.deepPurple,
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                ),
-                color: Colors.white,
-              ),
-              height: MediaQuery.of(context).size.height,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    const Icon(Icons.person, size: 200),
-                    const SizedBox(height: 10),
-                    mountAreaEmail(),
-                    const SizedBox(height: 10),
-                    mountAreaSenha(),
-                    const SizedBox(height: 20),
-                    InkWell(
-                      onTap: () {
-                        UserController().login(
-                          context,
-                          emailController.text,
-                          passwordController.text,
-                        );
-                      },
-                      child: Container(
-                        height: 55,
-                        width: double.infinity,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.deepPurple,
-                        ),
-                        child: const Text(
-                          ServiceConstants.SALVAR,
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-
-
-
+          TopBar(),
+         Padding(
+           padding: const EdgeInsets.all(10.0),
+           child: Column(
+             children: [
+               const Icon(Icons.person, size: 200),
+               const SizedBox(height: 10),
+               mountAreaEmail(),
+               const SizedBox(height: 10),
+               mountAreaSenha(),
+               const SizedBox(height: 20),
+               InkWell(
+                 onTap: () {
+                   UserController().login(
+                     context,
+                     emailController.text,
+                     passwordController.text,
+                   );
+                 },
+                 child: Container(
+                   height: 55,
+                   width: double.infinity,
+                   alignment: Alignment.center,
+                   decoration: BoxDecoration(
+                     borderRadius: BorderRadius.circular(20),
+                     color: Colors.deepPurple,
+                   ),
+                   child: const Text(
+                     ServiceConstants.SALVAR,
+                     style: TextStyle(
+                       color: Colors.white,
+                     ),
+                   ),
+                 ),
+               ),
+             ],
+           ),
+         )
         ],
-      ),
+      )
     );
   }
 

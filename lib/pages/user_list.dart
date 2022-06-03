@@ -1,3 +1,4 @@
+import 'package:aula1/components/top_bar.dart';
 import 'package:aula1/controller/user_api_controller.dart';
 import 'package:aula1/controller/user_search_controller.dart';
 import 'package:aula1/models/user_models.dart';
@@ -35,8 +36,7 @@ class _UserListState extends State<UserList> {
         actions: [
           IconButton(
             onPressed: () {
-              showSearch(context: context,
-                  delegate: SearchUser());
+              showSearch(context: context, delegate: SearchUser());
             },
             icon: Icon(Icons.search),
           )
@@ -44,90 +44,79 @@ class _UserListState extends State<UserList> {
       ),
       body: Stack(
         children: [
-          Container(
-            height: 50,
-            alignment: Alignment.bottomCenter,
-            width: MediaQuery.of(context).size.width,
-            color: Colors.deepPurple,
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                ),
-                color: Colors.white,
-              ),
-              height: MediaQuery.of(context).size.height - 200,
-            ),
-          ),
+          TopBar(),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    SizedBox(
-                      height: 120,
-                      width: 450,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: lista.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 5),
-                              width: 80,
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          UserPage(data: lista[index]),
-                                    ),
-                                  );
-                                },
-                                child: CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                    lista[index].avatar.toString(),
-                                  ),
-                                ),
-                              ),
-                            );
-                          }),
-                    ),
-                  ],
-                ),
+                topRowScreen(),
                 const SizedBox(height: 20),
-                Container(
-                  height: 500,
-                  child: ListView.builder(
-                      itemCount: lista.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                lista[index].avatar.toString(),
-                              ),
-                            ),
-                            title: Text(
-                              lista[index].firstName.toString(),
-                            ),
-                            subtitle: Text(
-                              lista[index].email.toString(),
-                            ),
-                          ),
-                        );
-                      }),
-                ),
+                ListUser(),
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+
+  ListUser() {
+    return Container(
+      height: 500,
+      child: ListView.builder(
+          itemCount: lista.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: ListTile(
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                    lista[index].avatar.toString(),
+                  ),
+                ),
+                title: Text(
+                  lista[index].firstName.toString(),
+                ),
+                subtitle: Text(
+                  lista[index].email.toString(),
+                ),
+              ),
+            );
+          }),
+    );
+  }
+
+  topRowScreen() {
+    return Row(
+      children: [
+        SizedBox(
+          height: 120,
+          width: 450,
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: lista.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
+                  width: 80,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UserPage(data: lista[index]),
+                        ),
+                      );
+                    },
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                        lista[index].avatar.toString(),
+                      ),
+                    ),
+                  ),
+                );
+              }),
+        ),
+      ],
     );
   }
 }
